@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donasi - Rendzz Hosting</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #4f46e5;
+            --secondary: #f59e0b;
+            --dark: #1e293b;
+            --light: #f8fafc;
+            --blur-bg: rgba(255, 255, 255, 0.85);
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f1f5f9;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary), #6366f1);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            border-radius: 0 0 20px 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+        
+        .logo {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        
+        .tagline {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+        
+        /* QRIS Zoom Effect */
+        .qris-container {
+            text-align: center;
+            margin: 20px 0;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        
+        .qris-container:hover {
+            transform: scale(1.02);
+        }
+        
+        .qris-img {
+            max-width: 250px;
+            border-radius: 10px;
+            border: 1px solid #e2e8f0;
+            padding: 10px;
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            transition: transform 0.3s;
+        }
+        
+        .qris-img.zoomed {
+            transform: scale(1.5);
+            position: relative;
+            z-index: 100;
+        }
+        
+        /* Payment Methods */
+        .payment-methods {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin: 20px 0;
+        }
+        
+        .payment-method {
+            background: white;
+            border-radius: 8px;
+            padding: 10px 15px;
+            border: 1px solid #e2e8f0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 500;
+        }
+        
+        /* Comment Section */
+        .comment-section {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        .comment-form {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .comment-input {
+            flex: 1;
+            padding: 10px 15px;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            font-family: inherit;
+        }
+        
+        .comment-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 0 20px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .comment-btn:hover {
+            background: #4338ca;
+        }
+        
+        .comments {
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        
+        .comment {
+            background: #f8fafc;
+            border-radius: 8px;
+            padding: 10px 15px;
+            margin-bottom: 10px;
+            border-left: 3px solid var(--primary);
+        }
+        
+        .comment-author {
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+        
+        /* Marquee */
+        .marquee-container {
+            background: var(--dark);
+            color: white;
+            padding: 12px 0;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
+        
+        .marquee {
+            display: flex;
+            white-space: nowrap;
+            animation: marquee 20s linear infinite;
+        }
+        
+        /* Animations */
+        @keyframes marquee {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+        
+        @media (max-width: 600px) {
+            .container {
+                padding: 10px;
+            }
+            
+            .qris-img.zoomed {
+                transform: scale(1.2);
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">Rendzz Hosting</div>
+            <div class="tagline">Dukung kami untuk terus berkembang</div>
+        </div>
+    </header>
+    
+    <div class="container">
+        <!-- Running Text/Marquee -->
+        <div class="marquee-container">
+            <div class="marquee">
+                <span style="margin-right: 50px;">🎉 Terima kasih untuk donasinya! Setiap kontribusi sangat berarti bagi kami Terimakasih Sudah Donasi🎉</span>
+                <span style="margin-right: 50px;">💻 Donasi akan digunakan untuk pengembangan server dan layanan yang lebih baik 💻</span>
+                <span>🙏 Semoga kebaikan Anda dibalas berlipat ganda 🙏</span>
+            </div>
+        </div>
+        
+        <!-- Donation Box -->
+        <div class="donation-box">
+            <h2><i class="fas fa-hand-holding-heart"></i> Donasi</h2>
+            <p style="text-align: center;">Dukung kami dengan berdonasi melalui QRIS berikut:</p>
+            
+            <div class="qris-container" id="qrisContainer">
+                <img src="https://cloudgood.web.id/file/mLaW509.jpg" alt="QRIS Donasi" class="qris-img" id="qrisImage">
+                <p style="margin-top: 10px;"><i class="fas fa-search-plus"></i> Klik untuk zoom in/out</p>
+            </div>
+            
+            <div style="text-align: center; margin: 20px 0;">
+                <p>Atau transfer ke:</p>
+                <div class="payment-methods">
+                    <div class="payment-method">
+                        <i class="fas fa-university"></i> BCA: COMING SOON 
+                    </div>
+                    <div class="payment-method">
+                        <i class="fas fa-wallet"></i> Dana: 083193340723
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Comment Section -->
+        <div class="comment-section">
+            <h3><i class="fas fa-comments"></i> Ucapan & Doa</h3>
+            <div class="comment-form">
+                <input type="text" class="comment-input" placeholder="Tulis ucapan atau doa..." id="commentInput">
+                <button class="comment-btn" id="commentBtn"><i class="fas fa-paper-plane"></i></button>
+            </div>
+           <div class="comments" id="commentsContainer"><div class="comments" id="commentsContainer">
+    <div class="comment">
+        <div class="comment-author">Anonymous</div>
+        <div class="comment-text">Terus Berkembang</div>
+    </div>
+    <div class="comment">
+        <div class="comment-author">Manxzz</div>
+        <div class="comment-text">Layanannya keren banget, semoga makin berkembang!</div>
+    </div>
+    <div class="comment">
+        <div class="comment-author">Rara</div>
+        <div class="comment-text">Fast respon dan sangat membantu!</div>
+    </div>
+    <div class="comment">
+        <div class="comment-author">Danz</div>
+        <div class="comment-text">Bot-nya auto approve cepat banget.</div>
+    </div>
+    <div class="comment">
+        <div class="comment-author">JevinX</div>
+        <div class="comment-text">Udah coba, dan hasilnya memuaskan!</div>
+    </div>
+    <div class="comment">
+        <div class="comment-author">CieDev</div>
+        <div class="comment-text">Top tier service, mantap pokoknya.</div>
+    </div>
+    <div class="comment">
+        <div class="comment-author">DevDewa</div>
+        <div class="comment-text">Mantap jiwa, gas terus bang!</div>
+    </div>
+    <div class="comment">
+        <div class="comment-author">ZeeBot</div>
+        <div class="comment-text">Script-nya gak ada lawan, ringan dan cepet.</div>
+    </div>
+    <div class="comment">
+        <div class="comment-author">Liaaa</div>
+        <div class="comment-text">Adminnya baik banget, sabar ngebantu.</div>
+    </div>
+    <div class="comment">
+        <div class="comment-author">Hackie</div>
+        <div class="comment-text">Recommended parah buat pemula!</div>
+    </div>
+    <div class="comment">
+        <div class="comment-author">Fayzz</div>
+        <div class="comment-text">Cocok banget buat project gua, nice banget pokoknya.</div>
+    </div>
+    <div class="comment">
+        <div class="comment-author">Xyn</div>
+        <div class="comment-text">Jarang ada yang sesupport ini, respect!</div>
+    </div>
+    <div class="comment">
+        <div class="comment-author">Alfy</div>
+        <div class="comment-text">Script-nya jalan tanpa error, mantap bang!</div>
+    </div>
+    <div class="comment">
+        <div class="comment-author">RendzFan</div>
+        <div class="comment-text">Bang Rendzz emang panutan!</div>
+    </div>
+    <div class="comment">
+        <div class="comment-author">Tania</div>
+        <div class="comment-text">Sangat puas dengan layanannya, thanks!</div>
+    </div>
+    <div class="comment">
+        <div class="comment-author">OpzX</div>
+        <div class="comment-text">Udah coba banyak, tapi ini paling stabil.</div>
+    </div>
+    <div class="comment">
+        <div class="comment-author">JokerDev</div>
+        <div class="comment-text">Kalau bisa kasih bintang 10, pasti gua kasih dah!</div>
+    </div>
+    <div class="comment">
+        <div class="comment-author">Riyan</div>
+        <div class="comment-text">Supportnya 24 jam, jarang banget ada gini.</div>
+    </div>
+    <div class="comment">
+        <div class="comment-author">Fixer</div>
+        <div class="comment-text">Fix langganan sih ini.</div>
+    </div>
+    <div class="comment">
+        <div class="comment-author">DevNoob</div>
+        <div class="comment-text">Awalnya bingung, sekarang malah jago. Makasih bgt!</div>
+    </div>
+</div>
+   
+    
+    <footer>
+        <div class="container">
+            &copy; 2023 Rendzz Hosting. All rights reserved.
+        </div>
+    </footer>
+
+    <script>
+        // QRIS Zoom functionality
+        const qrisImage = document.getElementById('qrisImage');
+        const qrisContainer = document.getElementById('qrisContainer');
+        
+        qrisContainer.addEventListener('click', function() {
+            qrisImage.classList.toggle('zoomed');
+            
+            // Scroll to center the zoomed image
+            if (qrisImage.classList.contains('zoomed')) {
+                qrisImage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+        });
+        
+        // Comment functionality
+        const commentInput = document.getElementById('commentInput');
+        const commentBtn = document.getElementById('commentBtn');
+        const commentsContainer = document.getElementById('commentsContainer');
+        
+        commentBtn.addEventListener('click', addComment);
+        commentInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') addComment();
+        });
+        
+        function addComment() {
+            const commentText = commentInput.value.trim();
+            if (commentText === '') return;
+            
+            const commentDiv = document.createElement('div');
+            commentDiv.className = 'comment';
+            commentDiv.innerHTML = `
+                <div class="comment-author">Anonymous</div>
+                <div class="comment-text">${commentText}</div>
+            `;
+            
+            commentsContainer.prepend(commentDiv);
+            commentInput.value = '';
+            
+            // Scroll to show new comment
+            commentDiv.scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        // Marquee animation for mobile compatibility
+        function cloneMarqueeContent() {
+            const marquee = document.querySelector('.marquee');
+            const content = marquee.innerHTML;
+            marquee.innerHTML = content + content + content;
+            marquee.style.width = '300%';
+        }
+        
+        // Run on load
+        window.addEventListener('load', cloneMarqueeContent);
+    </script>
+</body>
+</html>
