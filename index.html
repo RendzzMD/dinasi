@@ -5,22 +5,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Donasi - Rendzz Hosting</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
     <style>
         :root {
-            --primary: #4f46e5;
-            --secondary: #f59e0b;
-            --dark: #1e293b;
-            --light: #f8fafc;
-            --blur-bg: rgba(255, 255, 255, 0.85);
+            --primary: #5e72e4;
+            --primary-dark: #4a5acf;
+            --secondary: #f6ad55;
+            --dark: #1a202c;
+            --darker: #12161f;
+            --light: #f7fafc;
+            --gray: #e2e8f0;
+            --dark-gray: #2d3748;
+            --blur-bg: rgba(26, 32, 44, 0.9);
+            --ios-card-bg: rgba(255, 255, 255, 0.08);
+            --ios-card-border: rgba(255, 255, 255, 0.1);
         }
         
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f1f5f9;
-            color: var(--dark);
+            background-color: var(--darker);
+            color: var(--light);
             line-height: 1.6;
+            transition: background 0.5s ease;
         }
         
         .container {
@@ -30,24 +38,56 @@
         }
         
         header {
-            background: linear-gradient(135deg, var(--primary), #6366f1);
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
             color: white;
             padding: 2rem 0;
             text-align: center;
             border-radius: 0 0 20px 20px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            box-shadow: 0 10px 30px rgba(94, 114, 228, 0.3);
             margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
         }
         
         .logo {
             font-size: 2.2rem;
             font-weight: 700;
             margin-bottom: 10px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
         }
         
         .tagline {
             font-size: 1rem;
             opacity: 0.9;
+            font-weight: 300;
+        }
+        
+        /* iOS Style Card */
+        .ios-card {
+            background: var(--ios-card-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 14px;
+            border: 1px solid var(--ios-card-border);
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .ios-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
         }
         
         /* QRIS Zoom Effect */
@@ -55,27 +95,36 @@
             text-align: center;
             margin: 20px 0;
             cursor: pointer;
-            transition: transform 0.3s;
-        }
-        
-        .qris-container:hover {
-            transform: scale(1.02);
+            transition: all 0.3s ease;
         }
         
         .qris-img {
             max-width: 250px;
-            border-radius: 10px;
-            border: 1px solid #e2e8f0;
-            padding: 10px;
+            border-radius: 14px;
+            border: 1px solid var(--ios-card-border);
+            padding: 15px;
             background: white;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-            transition: transform 0.3s;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
         
         .qris-img.zoomed {
-            transform: scale(1.5);
-            position: relative;
+            transform: scale(1.8);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
             z-index: 100;
+            position: relative;
+        }
+        
+        .zoom-hint {
+            font-size: 0.9rem;
+            color: var(--gray);
+            margin-top: 10px;
+            opacity: 0.7;
+            transition: opacity 0.3s;
+        }
+        
+        .qris-container:hover .zoom-hint {
+            opacity: 1;
         }
         
         /* Payment Methods */
@@ -88,22 +137,31 @@
         }
         
         .payment-method {
-            background: white;
-            border-radius: 8px;
-            padding: 10px 15px;
-            border: 1px solid #e2e8f0;
+            background: var(--ios-card-bg);
+            backdrop-filter: blur(10px);
+            border-radius: 10px;
+            padding: 12px 18px;
+            border: 1px solid var(--ios-card-border);
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
             font-weight: 500;
+            transition: transform 0.3s ease;
+        }
+        
+        .payment-method:hover {
+            transform: translateY(-3px);
+            background: rgba(94, 114, 228, 0.2);
         }
         
         /* Comment Section */
         .comment-section {
-            background: white;
-            border-radius: 15px;
+            background: var(--ios-card-bg);
+            backdrop-filter: blur(10px);
+            border-radius: 14px;
             padding: 20px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            border: 1px solid var(--ios-card-border);
         }
         
         .comment-form {
@@ -114,43 +172,84 @@
         
         .comment-input {
             flex: 1;
-            padding: 10px 15px;
-            border: 1px solid #e2e8f0;
-            border-radius: 8px;
+            padding: 12px 15px;
+            border: none;
+            border-radius: 10px;
             font-family: inherit;
+            background: rgba(255,255,255,0.1);
+            color: white;
+            font-size: 0.95rem;
+            transition: background 0.3s;
+        }
+        
+        .comment-input:focus {
+            outline: none;
+            background: rgba(255,255,255,0.15);
+        }
+        
+        .comment-input::placeholder {
+            color: rgba(255,255,255,0.5);
         }
         
         .comment-btn {
             background: var(--primary);
             color: white;
             border: none;
-            border-radius: 8px;
+            border-radius: 10px;
             padding: 0 20px;
             cursor: pointer;
-            transition: background 0.3s;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         
         .comment-btn:hover {
-            background: #4338ca;
+            background: var(--primary-dark);
+            transform: translateY(-2px);
         }
         
         .comments {
             max-height: 300px;
             overflow-y: auto;
+            padding-right: 5px;
+        }
+        
+        /* Custom scrollbar */
+        .comments::-webkit-scrollbar {
+            width: 5px;
+        }
+        
+        .comments::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        
+        .comments::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 10px;
         }
         
         .comment {
-            background: #f8fafc;
-            border-radius: 8px;
-            padding: 10px 15px;
-            margin-bottom: 10px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 10px;
+            padding: 12px 15px;
+            margin-bottom: 12px;
             border-left: 3px solid var(--primary);
+            transition: transform 0.3s ease, background 0.3s;
+        }
+        
+        .comment:hover {
+            background: rgba(255,255,255,0.08);
+            transform: translateX(5px);
         }
         
         .comment-author {
             font-weight: 600;
-            color: var(--primary);
+            color: var(--secondary);
             margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
         }
         
         /* Marquee */
@@ -158,9 +257,33 @@
             background: var(--dark);
             color: white;
             padding: 12px 0;
-            border-radius: 8px;
+            border-radius: 10px;
             margin-bottom: 30px;
             overflow: hidden;
+            position: relative;
+            border: 1px solid var(--dark-gray);
+        }
+        
+        .marquee-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 50px;
+            height: 100%;
+            background: linear-gradient(90deg, var(--darker), transparent);
+            z-index: 2;
+        }
+        
+        .marquee-container::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 50px;
+            height: 100%;
+            background: linear-gradient(270deg, var(--darker), transparent);
+            z-index: 2;
         }
         
         .marquee {
@@ -169,49 +292,120 @@
             animation: marquee 20s linear infinite;
         }
         
-        /* Animations */
-        @keyframes marquee {
-            0% { transform: translateX(100%); }
-            100% { transform: translateX(-100%); }
+        .marquee span {
+            display: flex;
+            align-items: center;
+            margin-right: 50px;
         }
         
+        /* Animations */
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        
+        /* Floating action button */
+        .fab {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            box-shadow: 0 5px 20px rgba(94, 114, 228, 0.5);
+            cursor: pointer;
+            z-index: 100;
+            transition: all 0.3s ease;
+        }
+        
+        .fab:hover {
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: 0 8px 25px rgba(94, 114, 228, 0.6);
+        }
+        
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 20px 0;
+            color: rgba(255,255,255,0.5);
+            font-size: 0.9rem;
+            margin-top: 40px;
+        }
+        
+        /* Unique Icons */
+        .icon-heart {
+            color: #ff6b6b;
+        }
+        
+        .icon-sparkle {
+            color: var(--secondary);
+            text-shadow: 0 0 8px rgba(245, 158, 11, 0.5);
+        }
+        
+        .icon-donate {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        /* Responsive */
         @media (max-width: 600px) {
             .container {
-                padding: 10px;
+                padding: 15px;
             }
             
             .qris-img.zoomed {
-                transform: scale(1.2);
+                transform: scale(1.3);
+            }
+            
+            .payment-methods {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .fab {
+                bottom: 20px;
+                right: 20px;
+                width: 50px;
+                height: 50px;
+                font-size: 1.3rem;
             }
         }
     </style>
 </head>
 <body>
-    <header>
+    <header class="animate__animated animate__fadeIn">
         <div class="container">
-            <div class="logo">Rendzz Hosting</div>
-            <div class="tagline">Dukung kami untuk terus berkembang</div>
+            <div class="logo"><i class="fas fa-cloud icon-donate"></i> Rendzz Hosting</div>
+            <div class="tagline">Dukung kami untuk terus berkembang dan berinovasi</div>
         </div>
     </header>
     
     <div class="container">
         <!-- Running Text/Marquee -->
-        <div class="marquee-container">
+        <div class="marquee-container ios-card animate__animated animate__fadeInUp animate__delay-1s">
             <div class="marquee">
-                <span style="margin-right: 50px;">🎉 Terima kasih untuk donasinya! Setiap kontribusi sangat berarti bagi kami Terimakasih Sudah Donasi🎉</span>
-                <span style="margin-right: 50px;">💻 Donasi akan digunakan untuk pengembangan server dan layanan yang lebih baik 💻</span>
-                <span>🙏 Semoga kebaikan Anda dibalas berlipat ganda 🙏</span>
+                <span><i class="fas fa-heart icon-heart"></i> Terima kasih untuk donasinya! Setiap kontribusi sangat berarti bagi kami <i class="fas fa-heart icon-heart"></i></span>
+                <span><i class="fas fa-server"></i> Donasi akan digunakan untuk pengembangan server dan layanan yang lebih baik <i class="fas fa-server"></i></span>
+                <span><i class="fas fa-hands-helping"></i> Semoga kebaikan Anda dibalas berlipat ganda <i class="fas fa-hands-helping"></i></span>
             </div>
         </div>
         
         <!-- Donation Box -->
-        <div class="donation-box">
-            <h2><i class="fas fa-hand-holding-heart"></i> Donasi</h2>
-            <p style="text-align: center;">Dukung kami dengan berdonasi melalui QRIS berikut:</p>
+        <div class="ios-card animate__animated animate__fadeInUp animate__delay-1s">
+            <h2><i class="fas fa-hand-holding-heart icon-donate"></i> Donasi</h2>
+            <p style="text-align: center; opacity: 0.9;">Dukung kami dengan berdonasi melalui QRIS berikut:</p>
             
             <div class="qris-container" id="qrisContainer">
-                <img src="https://cloudgood.web.id/file/mLaW509.jpg" alt="QRIS Donasi" class="qris-img" id="qrisImage">
-                <p style="margin-top: 10px;"><i class="fas fa-search-plus"></i> Klik untuk zoom in/out</p>
+                <img src="https://pomf2.lain.la/f/n7hnsbg.jpg" alt="QRIS Donasi" class="qris-img" id="qrisImage">
+                <p class="zoom-hint"><i class="fas fa-search-plus"></i> Klik untuk memperbesar/mengecilkan</p>
             </div>
             
             <div style="text-align: center; margin: 20px 0;">
@@ -221,106 +415,75 @@
                         <i class="fas fa-university"></i> BCA: COMING SOON 
                     </div>
                     <div class="payment-method">
-                        <i class="fas fa-wallet"></i> Dana: 083193340723
+                        <i class="fab fa-google-wallet"></i> Dana: 083193340723
+                    </div>
+                    <div class="payment-method">
+                        <i class="fas fa-mobile-alt"></i> Gopay: COMING SOON
                     </div>
                 </div>
             </div>
         </div>
         
         <!-- Comment Section -->
-        <div class="comment-section">
-            <h3><i class="fas fa-comments"></i> Ucapan & Doa</h3>
+        <div class="comment-section ios-card animate__animated animate__fadeInUp animate__delay-2s">
+            <h3><i class="fas fa-comment-dots icon-sparkle"></i> Ucapan & Doa</h3>
             <div class="comment-form">
                 <input type="text" class="comment-input" placeholder="Tulis ucapan atau doa..." id="commentInput">
                 <button class="comment-btn" id="commentBtn"><i class="fas fa-paper-plane"></i></button>
             </div>
-           <div class="comments" id="commentsContainer"><div class="comments" id="commentsContainer">
-    <div class="comment">
-        <div class="comment-author">Anonymous</div>
-        <div class="comment-text">Terus Berkembang</div>
+            <div class="comments" id="commentsContainer">
+                <div class="comment">
+                    <div class="comment-author"><i class="fas fa-user-secret"></i> Anonymous</div>
+                    <div class="comment-text">Terus Berkembang!</div>
+                </div>
+                <div class="comment">
+                    <div class="comment-author"><i class="fas fa-star"></i> Manxzz</div>
+                    <div class="comment-text">Layanannya keren banget, semoga makin berkembang!</div>
+                </div>
+                <div class="comment">
+                    <div class="comment-author"><i class="fas fa-bolt"></i> Rara</div>
+                    <div class="comment-text">Fast respon dan sangat membantu!</div>
+                </div>
+                <div class="comment">
+                    <div class="comment-author"><i class="fas fa-robot"></i> Danz</div>
+                    <div class="comment-text">Bot-nya auto approve cepat banget.</div>
+                </div>
+                <div class="comment">
+                    <div class="comment-author"><i class="fas fa-code"></i> JevinX</div>
+                    <div class="comment-text">Udah coba, dan hasilnya memuaskan!</div>
+                </div>
+                <div class="comment">
+                    <div class="comment-author"><i class="fas fa-crown"></i> CieDev</div>
+                    <div class="comment-text">Top tier service, mantap pokoknya.</div>
+                </div>
+                <div class="comment">
+                    <div class="comment-author"><i class="fas fa-rocket"></i> DevDewa</div>
+                    <div class="comment-text">Mantap jiwa, gas terus bang!</div>
+                </div>
+                <div class="comment">
+                    <div class="comment-author"><i class="fas fa-feather-alt"></i> ZeeBot</div>
+                    <div class="comment-text">Script-nya gak ada lawan, ringan dan cepet.</div>
+                </div>
+                <div class="comment">
+                    <div class="comment-author"><i class="fas fa-smile-beam"></i> Liaaa</div>
+                    <div class="comment-text">Adminnya baik banget, sabar ngebantu.</div>
+                </div>
+                <div class="comment">
+                    <div class="comment-author"><i class="fas fa-lightbulb"></i> Hackie</div>
+                    <div class="comment-text">Recommended parah buat pemula!</div>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="comment">
-        <div class="comment-author">Manxzz</div>
-        <div class="comment-text">Layanannya keren banget, semoga makin berkembang!</div>
-    </div>
-    <div class="comment">
-        <div class="comment-author">Rara</div>
-        <div class="comment-text">Fast respon dan sangat membantu!</div>
-    </div>
-    <div class="comment">
-        <div class="comment-author">Danz</div>
-        <div class="comment-text">Bot-nya auto approve cepat banget.</div>
-    </div>
-    <div class="comment">
-        <div class="comment-author">JevinX</div>
-        <div class="comment-text">Udah coba, dan hasilnya memuaskan!</div>
-    </div>
-    <div class="comment">
-        <div class="comment-author">CieDev</div>
-        <div class="comment-text">Top tier service, mantap pokoknya.</div>
-    </div>
-    <div class="comment">
-        <div class="comment-author">DevDewa</div>
-        <div class="comment-text">Mantap jiwa, gas terus bang!</div>
-    </div>
-    <div class="comment">
-        <div class="comment-author">ZeeBot</div>
-        <div class="comment-text">Script-nya gak ada lawan, ringan dan cepet.</div>
-    </div>
-    <div class="comment">
-        <div class="comment-author">Liaaa</div>
-        <div class="comment-text">Adminnya baik banget, sabar ngebantu.</div>
-    </div>
-    <div class="comment">
-        <div class="comment-author">Hackie</div>
-        <div class="comment-text">Recommended parah buat pemula!</div>
-    </div>
-    <div class="comment">
-        <div class="comment-author">Fayzz</div>
-        <div class="comment-text">Cocok banget buat project gua, nice banget pokoknya.</div>
-    </div>
-    <div class="comment">
-        <div class="comment-author">Xyn</div>
-        <div class="comment-text">Jarang ada yang sesupport ini, respect!</div>
-    </div>
-    <div class="comment">
-        <div class="comment-author">Alfy</div>
-        <div class="comment-text">Script-nya jalan tanpa error, mantap bang!</div>
-    </div>
-    <div class="comment">
-        <div class="comment-author">RendzFan</div>
-        <div class="comment-text">Bang Rendzz emang panutan!</div>
-    </div>
-    <div class="comment">
-        <div class="comment-author">Tania</div>
-        <div class="comment-text">Sangat puas dengan layanannya, thanks!</div>
-    </div>
-    <div class="comment">
-        <div class="comment-author">OpzX</div>
-        <div class="comment-text">Udah coba banyak, tapi ini paling stabil.</div>
-    </div>
-    <div class="comment">
-        <div class="comment-author">JokerDev</div>
-        <div class="comment-text">Kalau bisa kasih bintang 10, pasti gua kasih dah!</div>
-    </div>
-    <div class="comment">
-        <div class="comment-author">Riyan</div>
-        <div class="comment-text">Supportnya 24 jam, jarang banget ada gini.</div>
-    </div>
-    <div class="comment">
-        <div class="comment-author">Fixer</div>
-        <div class="comment-text">Fix langganan sih ini.</div>
-    </div>
-    <div class="comment">
-        <div class="comment-author">DevNoob</div>
-        <div class="comment-text">Awalnya bingung, sekarang malah jago. Makasih bgt!</div>
-    </div>
-</div>
-   
     
-    <footer>
+    <!-- Floating Action Button -->
+    <div class="fab animate__animated animate__fadeInUp animate__delay-3s" id="fabBtn">
+        <i class="fas fa-gift"></i>
+    </div>
+    
+    <footer class="animate__animated animate__fadeIn animate__delay-3s">
         <div class="container">
-            &copy; 2023 Rendzz Hosting. All rights reserved.
+            &copy; 2023 Rendzz Hosting. All rights reserved. <i class="fas fa-heart icon-heart"></i>
         </div>
     </footer>
 
@@ -352,10 +515,17 @@
             const commentText = commentInput.value.trim();
             if (commentText === '') return;
             
+            // Create a unique icon for each comment
+            const icons = [
+                'fa-user-astronaut', 'fa-meteor', 'fa-moon', 'fa-sun', 
+                'fa-cloud-moon', 'fa-shooting-star', 'fa-globe', 'fa-atom'
+            ];
+            const randomIcon = icons[Math.floor(Math.random() * icons.length)];
+            
             const commentDiv = document.createElement('div');
-            commentDiv.className = 'comment';
+            commentDiv.className = 'comment animate__animated animate__fadeIn';
             commentDiv.innerHTML = `
-                <div class="comment-author">Anonymous</div>
+                <div class="comment-author"><i class="fas ${randomIcon}"></i> Anonymous</div>
                 <div class="comment-text">${commentText}</div>
             `;
             
@@ -366,16 +536,41 @@
             commentDiv.scrollIntoView({ behavior: 'smooth' });
         }
         
+        // Floating action button
+        const fabBtn = document.getElementById('fabBtn');
+        fabBtn.addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+        
         // Marquee animation for mobile compatibility
         function cloneMarqueeContent() {
             const marquee = document.querySelector('.marquee');
             const content = marquee.innerHTML;
-            marquee.innerHTML = content + content + content;
-            marquee.style.width = '300%';
+            marquee.innerHTML = content + content;
+            marquee.style.width = '200%';
         }
         
         // Run on load
         window.addEventListener('load', cloneMarqueeContent);
+        
+        // Add animation to elements when scrolling
+        const animateOnScroll = () => {
+            const elements = document.querySelectorAll('.ios-card');
+            
+            elements.forEach(element => {
+                const elementPosition = element.getBoundingClientRect().top;
+                const screenPosition = window.innerHeight / 1.2;
+                
+                if (elementPosition < screenPosition) {
+                    element.classList.add('animate__fadeInUp');
+                }
+            });
+        };
+        
+        window.addEventListener('scroll', animateOnScroll);
     </script>
 </body>
-</html>
+    </html>
